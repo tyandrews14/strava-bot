@@ -117,17 +117,22 @@ setInterval(() => {
       .then(token => {
           accessToken = token
 
+          axios.get(`https://www.strava.com/api/v3/clubs/${process.env.STRAVA_CLUB_ID}/activities?page=1&per_page=1`, {
+              headers: {
+                  'Authorization': 'Bearer '+accessToken
+              }
+          }).then((response) => {
+            // ... rest of the response handling stays exactly the same
+          }).catch((error) => {
+              console.error(error);
+          });
+
       })
       .catch(error => {
           console.error(error)
       })
 
-    axios.get(`https://www.strava.com/api/v3/clubs/${process.env.STRAVA_CLUB_ID}/activities?page=1&per_page=1`, {
-        headers: {
-            'Authorization': 'Bearer '+accessToken
-        }
-    }).then((response) => {
-
+}, 300000);
       const data = response.data
 
       const activityName = data[0].name
