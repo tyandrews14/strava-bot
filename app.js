@@ -24,7 +24,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 let channel = null
 
 client.once(Events.ClientReady, c => {
-  channel = client.channels.cache.get(process.env.1440447442033311825);
+  channel = client.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
   console.log('Ready! Logged in as '+c.user.tag);
   console.log('Currently sending updates in :'+channel)
 });
@@ -122,7 +122,7 @@ setInterval(() => {
           console.error(error)
       })
 
-    axios.get(`https://www.strava.com/api/v3/clubs/${process.env.2073741}/activities?page=1&per_page=1`, {
+    axios.get(`https://www.strava.com/api/v3/clubs/${process.env.STRAVA_CLUB_ID}/activities?page=1&per_page=1`, {
         headers: {
             'Authorization': 'Bearer '+accessToken
         }
